@@ -1,0 +1,21 @@
+syntax = "proto3";
+option go_package = "github.com/cbotte21/hive-go";
+
+service HiveService {
+  rpc Join(JoinRequest) returns (JoinResponse) {}
+  rpc Disconnect(DisconnectRequest) returns (Void) {}
+}
+
+message JoinRequest {
+  string jwt = 1;
+}
+
+message JoinResponse {
+  string _id = 1;
+}
+
+message DisconnectRequest {
+  string _id = 1;
+}
+
+message Void {}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+option go_package = "github.com/cbotte21/judicial-go";
+
+service JudicialService {
+  rpc Ban(BanRequest) returns (Bool) {}
+  rpc Unban(Player) returns (Bool) {}
+  rpc Status(Player) returns (Bool) {}
+}
+
+message BanRequest {
+  string _id = 1;
+  string reason = 2;
+  int32 minutes = 3;
+}
+
+message Player {
+  string _id = 1;
+}
+
+message Bool {
+  bool res = 1;
+}
