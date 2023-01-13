@@ -9,7 +9,7 @@ import (
 
 func TestJoin(t *testing.T) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(":9000")
+	conn, err := grpc.Dial(":9000", grpc.WithInsecure())
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
@@ -23,5 +23,5 @@ func TestJoin(t *testing.T) {
 	if err != nil {
 		t.Error(err.Error())
 	}
-	t.Logf(player.XId)
+	println(player.XId)
 }
