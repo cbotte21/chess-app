@@ -19,9 +19,8 @@ func TestJoin(t *testing.T) {
 
 	hive := pb.NewHiveServiceClient(conn)
 
-	player, err := hive.Join(context.Background(), &pb.JoinRequest{Jwt: "myjwt"})
+	_, err = hive.Join(context.Background(), &pb.JoinRequest{Jwt: "myjwt"})
 	if err != nil {
 		t.Error(err.Error())
 	}
-	println(player.XId)
 }

@@ -1,5 +1,9 @@
 package jwt
 
-type Jwt struct {
+type JwtSecret struct {
 	phrase string
+}
+
+func NewJwtSecret(phrase string) JwtSecret {
+	return JwtSecret{phrase}
 }

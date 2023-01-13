@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/cbotte21/hive-go/internal/jwt"
+	"github.com/cbotte21/hive-go/internal/playerbase"
 	"github.com/cbotte21/hive-go/pb"
 	"google.golang.org/grpc"
 	"log"
@@ -9,7 +11,8 @@ import (
 )
 
 const (
-	PORT int = 9000
+	PORT   int    = 9000
+	SECRET string = "mysupersecretjwtphrase"
 )
 
 func main() {
@@ -17,8 +20,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to listen on port: %d", PORT)
 	}
-	hive := pb.HiveServer{}
 	grpcServer := grpc.NewServer()
+
+	//Register handlers to attach
+	playerBase := playerbase.PlayerBase{}
+	jwtRedeemer := jwt.NewJwtSecret(SECRET)
+	//Initialize hive
+	hive := pb.NewHive(&playerBase, &jwtRedeemer)
 
 	pb.RegisterHiveServiceServer(grpcServer, &hive)
 
