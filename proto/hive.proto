@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = "github.com/cbotte21/hive-go";
+option go_package = "github.com/cbotte21/hive-go/pb";
 
 service HiveService {
   rpc Join(JoinRequest) returns (JoinResponse) {}
