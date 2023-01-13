@@ -6,14 +6,15 @@ import (
 )
 
 type HiveServer struct {
+	UnimplementedHiveServiceServer
 }
 
-func (hive *HiveServer) Join(ctx context.Context, joinRequest *JoinRequest) *Player {
+func (hive *HiveServer) Join(ctx context.Context, joinRequest *JoinRequest) (*Player, error) {
 	log.Printf("Join requested: %s", joinRequest.Jwt)
-	return &Player{XId: "players id"}
+	return &Player{XId: "players id"}, nil
 }
 
-func (hive *HiveServer) Disconnect(ctx context.Context, player *Player) *Void {
+func (hive *HiveServer) Disconnect(ctx context.Context, player *Player) (*Void, error) {
 	log.Printf("Player has disconnected: %s", player.XId)
-	return &Void{}
+	return &Void{}, nil
 }

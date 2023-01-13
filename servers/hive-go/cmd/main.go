@@ -20,7 +20,7 @@ func main() {
 	hive := pb.HiveServer{}
 	grpcServer := grpc.NewServer()
 
-	pb.RegisterHiveServiceServer(gprcServer, &hive)
+	pb.RegisterHiveServiceServer(grpcServer, &hive)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to initialize grpc server.")
