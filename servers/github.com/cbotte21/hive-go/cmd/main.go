@@ -17,12 +17,12 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to listen on port: %d", PORT)
 	}
-	hiveService := pb.Server{}
-	server := grpc.NewServer()
+	hive := pb.HiveServer{}
+	grpcServer := grpc.NewServer()
 
-	pb.RegisterChatServiceServer(server, &hiveService)
+	pb.RegisterHiveServiceServer(gprcServer, &hive)
 
-	if err := server.Serve(lis); err != nil {
+	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to initialize grpc server.")
 	}
 }
