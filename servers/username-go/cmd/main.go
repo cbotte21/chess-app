@@ -22,7 +22,7 @@ func main() {
 	//Register handlers to attach
 
 	//Initialize hive
-	_ = internal.NewQueue()
+	_ = internal.NewUsername()
 
 	//pb.RegisterQueueServiceServer(grpcServer, &hive)
 

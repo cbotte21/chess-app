@@ -1,11 +1,11 @@
 package internal
 
-type Queue struct {
+type Username struct {
 	//UnimplementedQueueServiceServer
 }
 
-func NewQueue() Queue {
-	return Queue{}
+func NewUsername() Username {
+	return Username{}
 }
 
 /*
