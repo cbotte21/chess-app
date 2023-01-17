@@ -4,7 +4,7 @@ option go_package = "github.com/cbotte21/judicial-go";
 service JudicialService {
   rpc Ban(BanRequest) returns (Bool) {}
   rpc Unban(Player) returns (Bool) {}
-  rpc Status(Player) returns (Bool) {}
+  rpc Integrity(Player) returns (Bool) {} //Returns true is a player is NOT banned
 }
 
 message BanRequest {

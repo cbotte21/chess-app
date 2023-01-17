@@ -2,9 +2,6 @@ package main
 
 import (
 	"github.com/cbotte21/hive-go/internal"
-	"github.com/cbotte21/hive-go/internal/jwt"
-	"github.com/cbotte21/hive-go/internal/playerbase"
-	"github.com/cbotte21/hive-go/pb"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -12,8 +9,7 @@ import (
 )
 
 const (
-	PORT   int    = 9000
-	SECRET string = "mysupersecretjwtphrase"
+	PORT int = 9002
 )
 
 func main() {
@@ -24,12 +20,11 @@ func main() {
 	grpcServer := grpc.NewServer()
 
 	//Register handlers to attach
-	playerBase := playerbase.PlayerBase{}
-	jwtRedeemer := jwt.NewJwtSecret(SECRET)
-	//Initialize hive
-	hive := internal.NewHive(&playerBase, &jwtRedeemer)
 
-	pb.RegisterHiveServiceServer(grpcServer, &hive)
+	//Initialize hive
+	_ = internal.NewArchive()
+
+	//pb.RegisterQueueServiceServer(grpcServer, &hive)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to initialize grpc server.")
