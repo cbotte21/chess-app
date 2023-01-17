@@ -6,7 +6,7 @@ service HiveService {
   rpc Disconnect(Player) returns (Void) {}
 }
 
-message JoinRequest {
+message JoinRequest { //TODO: Rename to Jwt
   string jwt = 1;
 }
 

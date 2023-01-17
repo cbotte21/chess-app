@@ -1,7 +1,10 @@
 package playerbase
 
+import "log"
+
 type Player struct {
 	Id, Jwt string
+	Role    int
 }
 
 type PlayerBase []Player
@@ -19,4 +22,16 @@ func (playerBase *PlayerBase) Disconnect(id string) {
 			return
 		}
 	}
+}
+
+func (playerBase *PlayerBase) Log() {
+	var i int
+	for i = range *playerBase {
+		(*playerBase)[i].Log()
+	}
+	log.Printf("%d active players.", i)
+}
+
+func (player Player) Log() {
+	log.Printf(player.Jwt + " " + player.Id)
 }

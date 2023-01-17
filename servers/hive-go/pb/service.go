@@ -18,10 +18,11 @@ func NewHive(playerBase *playerbase.PlayerBase, jwtRedeemer *jwt.JwtSecret) Hive
 
 // Join appends {_id, jwt} to the active players, if joinRequest.jwt is valid
 func (hive *Hive) Join(ctx context.Context, joinRequest *JoinRequest) (*Player, error) {
-	id, err := hive.JwtRedeemer.Redeem(joinRequest.Jwt)
+	player, err := hive.JwtRedeemer.Redeem(joinRequest.Jwt)
 	if err == nil {
-		hive.PlayerBase.AppendUnique(playerbase.Player{Id: id, Jwt: joinRequest.Jwt})
-		return &Player{XId: id}, err
+		player.Jwt = joinRequest.Jwt
+		hive.PlayerBase.AppendUnique(player)
+		return &Player{XId: player.Id}, err //TODO: Add role
 	}
 	return &Player{}, err
 }

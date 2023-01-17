@@ -1,0 +1,14 @@
+syntax = "proto3";
+option go_package = "github.com/cbotte21/username-go/pb";
+
+service UsernameService {
+  rpc Join(Player) returns (Username) {}
+}
+
+message Username {
+  string prefix = 1;
+}
+
+message Player {
+  string _id = 1;
+}

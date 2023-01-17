@@ -1,0 +1,13 @@
+syntax = "proto3";
+option go_package = "github.com/cbotte21/queue-go/pb";
+
+service QueueService {
+  rpc Join(Player) returns (Void) {}
+  rpc Leave(Player) returns (Void) {}
+}
+
+message Player {
+  string _id = 1;
+}
+
+message Void {}
