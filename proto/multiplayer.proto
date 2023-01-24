@@ -1,0 +1,19 @@
+syntax = "proto3";
+option go_package = "github.com/cbotte21/multiplayer-go/pb";
+
+service MultiplayerService {
+  rpc Play (stream PlayerInfo) returns (stream PlayerLocation);
+}
+
+message PlayerInfo {
+  string jwt = 1;
+  string texture = 2;
+  int32 x = 3;
+  int32 y = 4;
+}
+
+message PlayerLocation {
+  string texture = 1;
+  int32 x = 2;
+  int32 y = 3;
+}

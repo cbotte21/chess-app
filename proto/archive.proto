@@ -1,0 +1,28 @@
+syntax = "proto3";
+option go_package = "github.com/cbotte21/archive-go/pb";
+
+service ArchiveService {
+  rpc History(Player) returns (PriorMatches) {}
+  rpc Match(MatchId) returns (MatchInfo) {}
+  rpc Record(MatchInfo) returns (Void) {}
+}
+
+message PriorMatches {
+  repeated string ids = 1; //array
+}
+
+message MatchId {
+  string id = 1;
+}
+
+message MatchInfo {
+  string viktor = 1;
+  string opponent = 2;
+  int32 deltaElo = 3;
+}
+
+message Player {
+  string _id = 1;
+}
+
+message Void {}
