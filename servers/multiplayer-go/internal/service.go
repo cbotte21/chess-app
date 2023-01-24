@@ -16,7 +16,7 @@ func NewMultiplayer() Multiplayer {
 	return Multiplayer{}
 }
 
-func (multiplayer *Multiplayer) Join(ctx context.Context, stream *pb.MultiplayerService_PlayServer) error {
+func (multiplayer *Multiplayer) Join(ctx context.Context, stream pb.MultiplayerService_PlayServer) error {
 	var player *players.Player
 	defer func() {
 		multiplayer.players.Leave(*player)
@@ -25,7 +25,7 @@ func (multiplayer *Multiplayer) Join(ctx context.Context, stream *pb.Multiplayer
 		playerInfo, err := stream.Recv()
 		if player == nil { //Must register player
 			multiplayer.players.Join(playerInfo)
-			player = multiplayer.players.Get(playerInfo)
+			player = multiplayer.players.Get(*playerInfo)
 		}
 
 		player.Update(playerInfo.GetX(), playerInfo.GetY(), playerInfo.GetTexture(), playerInfo.GetJwt())
@@ -37,7 +37,7 @@ func (multiplayer *Multiplayer) Join(ctx context.Context, stream *pb.Multiplayer
 					X:       player.GetX(),
 					Y:       player.GetY(),
 				}
-				if err := stream.Send(playerLocation); err != nil {
+				if err := stream.Send(&playerLocation); err != nil {
 					return err
 				}
 			}
