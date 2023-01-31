@@ -6,6 +6,8 @@ import (
 	"google.golang.org/grpc"
 )
 
+//TODO: Test should use HTTP client to dynamically obtain JWT
+
 func main() {
 	var conn *grpc.ClientConn
 	conn, err := grpc.Dial(":9000", grpc.WithInsecure())
@@ -19,14 +21,11 @@ func main() {
 
 	hive := pb.NewHiveServiceClient(conn)
 
-	player, err := hive.Join(context.Background(), &pb.JoinRequest{Jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1NzhjOTZlMTQ0YjQxYzJhOWMzYjkiLCJyb2xlIjowLCJpc3MiOiJjYm90dGUyMSIsInN1YiI6Imp3dCIsImF1ZCI6WyJjbGllbnQiXSwiZXhwIjoxNjczODY5MzQ4LCJuYmYiOjE2NzM4MTg5NDgsImlhdCI6MTY3MzgxODk0OCwianRpIjoiMSJ9.0TABQLbN4F0HbB8ukzFt6uttT1RusiH7EFE-gxSeslo"})
+	player, err := hive.Join(context.Background(), &pb.Jwt{Jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1NzhjOTZlMTQ0YjQxYzJhOWMzYjkiLCJyb2xlIjowLCJpc3MiOiJjYm90dGUyMSIsInN1YiI6Imp3dCIsImF1ZCI6WyJjbGllbnQiXSwiZXhwIjoxNjczODY5MzQ4LCJuYmYiOjE2NzM4MTg5NDgsImlhdCI6MTY3MzgxODk0OCwianRpIjoiMSJ9.0TABQLbN4F0HbB8ukzFt6uttT1RusiH7EFE-gxSeslo"})
 	if err != nil {
 		println(err)
 		return
 	}
 	println("success... ")
-	print("    id: ")
-	println(player.GetXId())
-	print("    role: ")
-	println("NOT IMPLEMENTED")
+	println(player.Status)
 }

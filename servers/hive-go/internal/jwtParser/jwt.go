@@ -1,4 +1,4 @@
-package jwt
+package jwtParser
 
 type JwtSecret struct {
 	phrase string

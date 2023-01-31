@@ -9,7 +9,7 @@ func NewArchive() Archive {
 }
 
 /*
-// Join appends {_id, jwt} to the active players, if joinRequest.jwt is valid
+// Join appends {_id, jwtParser} to the active players, if joinRequest.jwtParser is valid
 func (hive *Hive) Join(ctx context.Context, joinRequest *JoinRequest) (*Player, error) {
 	player, err := hive.JwtRedeemer.Redeem(joinRequest.Jwt)
 	if err == nil {

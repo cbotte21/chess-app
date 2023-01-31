@@ -1,4 +1,4 @@
-module github.com/cbotte21/username-go
+module github.com/cbotte21/name-go
 
 go 1.19
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/cbotte21/hive-go/internal"
-	"github.com/cbotte21/hive-go/internal/jwt"
+	"github.com/cbotte21/hive-go/internal/jwtParser"
 	"github.com/cbotte21/hive-go/internal/playerbase"
 	"github.com/cbotte21/hive-go/pb"
 	"google.golang.org/grpc"
@@ -25,7 +25,7 @@ func main() {
 
 	//Register handlers to attach
 	playerBase := playerbase.PlayerBase{}
-	jwtRedeemer := jwt.NewJwtSecret(SECRET)
+	jwtRedeemer := jwtParser.NewJwtSecret(SECRET)
 	//Initialize hive
 	hive := internal.NewHive(&playerBase, &jwtRedeemer)
 

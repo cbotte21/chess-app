@@ -2,11 +2,13 @@ syntax = "proto3";
 option go_package = "github.com/cbotte21/hive-go/pb";
 
 service HiveService {
-  rpc Join(JoinRequest) returns (Player) {}
+  rpc Join(Jwt) returns (Bool) {}
   rpc Disconnect(Player) returns (Void) {}
+  rpc Redeem(Jwt) returns (Player) {}
+  rpc Online(Player) returns (Bool) {}
 }
 
-message JoinRequest { //TODO: Rename to Jwt
+message Jwt {
   string jwt = 1;
 }
 
@@ -15,3 +17,7 @@ message Player {
 }
 
 message Void {}
+
+message Bool {
+  int32 status = 1;
+}

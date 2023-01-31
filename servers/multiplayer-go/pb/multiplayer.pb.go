@@ -21,7 +21,7 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type PlayerInfo struct {
-	Jwt                  string   `protobuf:"bytes,1,opt,name=jwt,proto3" json:"jwt,omitempty"`
+	Jwt                  string   `protobuf:"bytes,1,opt,name=jwtParser,proto3" json:"jwtParser,omitempty"`
 	Texture              string   `protobuf:"bytes,2,opt,name=texture,proto3" json:"texture,omitempty"`
 	X                    int32    `protobuf:"varint,3,opt,name=x,proto3" json:"x,omitempty"`
 	Y                    int32    `protobuf:"varint,4,opt,name=y,proto3" json:"y,omitempty"`

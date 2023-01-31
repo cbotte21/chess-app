@@ -1,37 +1,29 @@
 package playerbase
 
-import "log"
+import "errors"
+
+type PlayerBase map[string]string
 
 type Player struct {
-	Id, Jwt string
-	Role    int
+	XID, Jwt string
 }
-
-type PlayerBase []Player
 
 // AppendUnique follows a delete existing policy
 func (playerBase *PlayerBase) AppendUnique(player Player) {
-	playerBase.Disconnect(player.Id)
-	*playerBase = append(*playerBase, player)
+	playerBase.Disconnect(player)
+	(*playerBase)[player.Jwt] = player.XID
 }
 
-func (playerBase *PlayerBase) Disconnect(id string) {
-	for i := range *playerBase {
-		if (*playerBase)[i].Id == id {
-			*playerBase = append((*playerBase)[:i], (*playerBase)[i+1:]...)
-			return
-		}
+// Disconnect removes a player from the active players map
+func (playerBase *PlayerBase) Disconnect(player Player) {
+	delete(*playerBase, player.XID)
+}
+
+// GetId returns the XID belonging to a player
+func (playerBase *PlayerBase) GetId(player Player) (string, error) {
+	id, found := (*playerBase)[player.Jwt]
+	if found {
+		return id, nil
 	}
-}
-
-func (playerBase *PlayerBase) Log() {
-	var i int
-	for i = range *playerBase {
-		(*playerBase)[i].Log()
-	}
-	log.Printf("%d active players.", i)
-}
-
-func (player Player) Log() {
-	log.Printf(player.Jwt + " " + player.Id)
+	return "", errors.New("player is not online")
 }
