@@ -1,0 +1,37 @@
+syntax = "proto3";
+option go_package = "github.com/cbotte21/chess-go/pb";
+
+service ChessService {
+  rpc Move(MoveRequest) returns (Bool) {}
+  rpc Update(Jwt) returns (stream BoardStatus) {}
+}
+
+message MoveRequest {
+  Jwt jwt = 1;
+  Position position = 2;
+}
+
+//X, Y from bottom left
+message Position {
+  int32 x = 1;
+  int32 y = 2;
+}
+
+message Bool {
+  bool status = 1;
+}
+
+message Jwt {
+  string jwt = 1;
+}
+
+//0 is white, returns board as a string. Each piece represented by {team - (0 == white)}{p - pawn, q - queen, r - rook, b - bishop, n - knight, k - king} (len = 128, 64x2)
+message BoardStatus {
+  bool turn = 1;
+  Player opponent = 2;
+  string board = 3;
+}
+
+message Player {
+  string _id = 1;
+}

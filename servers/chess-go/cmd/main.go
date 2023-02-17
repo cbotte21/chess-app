@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/cbotte21/multiplayer-go/internal"
+	"github.com/cbotte21/chess-go/internal"
+	"github.com/cbotte21/chess-go/pb"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -9,7 +10,7 @@ import (
 )
 
 const (
-	PORT int = 9000
+	PORT int = 9002
 )
 
 func main() {
@@ -19,12 +20,10 @@ func main() {
 	}
 	grpcServer := grpc.NewServer()
 
-	//Register handlers to attach
-
 	//Initialize hive
-	_ = internal.NewMultiplayer()
+	chessServer := internal.NewChess()
 
-	//pb.RegisterQueueServiceServer(grpcServer, &hive)
+	pb.RegisterChessServiceServer(grpcServer, &chessServer)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to initialize grpc server.")

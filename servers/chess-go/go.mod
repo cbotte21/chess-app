@@ -1,4 +1,4 @@
-module github.com/cbotte21/multiplayer-go
+module github.com/cbotte21/chess-go
 
 go 1.19
 

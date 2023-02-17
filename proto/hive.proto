@@ -3,9 +3,9 @@ option go_package = "github.com/cbotte21/hive-go/pb";
 
 service HiveService {
   rpc Join(Jwt) returns (Bool) {}
-  rpc Disconnect(Player) returns (Void) {}
-  rpc Redeem(Jwt) returns (Player) {}
-  rpc Online(Player) returns (Bool) {}
+  rpc Disconnect(Jwt) returns (Void) {}
+  rpc Redeem(Jwt) returns (Player) {} //Internal
+  rpc Online(Player) returns (Bool) {} //Internal
 }
 
 message Jwt {
