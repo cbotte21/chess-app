@@ -10,3 +10,12 @@ Server communications:
     hive -> judicial
     chess -> client_socket, archive //bidirectional communication with client
     queue -> chess
+
+# TODO:
+    - Extract PORT and URIs to .env files
+    - Finish judicial-go
+    - Implement judicial-go in hive-go
+    - Finish archive-go
+    - Finish chess-go
+    
+    - Build client

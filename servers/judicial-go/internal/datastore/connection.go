@@ -17,10 +17,10 @@ func GetMongoClient() (*mongo.Client, error) {
 	if err != nil {
 		log.Fatalf("Could not load enviroment variables!")
 	}
-	uri, uriPresent := os.LookupEnv("auth_mongo_uri")
+	uri, uriPresent := os.LookupEnv("judicial_mongo_uri")
 
 	if !uriPresent {
-		fmt.Println("could not find {auth_mongo_uri} environment variable")
+		fmt.Println("could not find {judicial_mongo_uri} environment variable")
 		os.Exit(1)
 	}
 

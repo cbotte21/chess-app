@@ -1,0 +1,39 @@
+syntax = "proto3";
+option go_package = "github.com/cbotte21/judicial-go/pb";
+
+import "google/protobuf/timestamp.proto";
+
+service JudicialService {
+  rpc Ban(BanRequest) returns (BanResponse) {}
+  rpc Unban(UnbanRequest) returns (UnbanResponse) {}
+  rpc Integrity(IntegrityRequest) returns (IntegrityResponse) {} //Returns true is a player is NOT banned
+}
+
+message BanRequest {
+  string _id = 1;
+  string god = 2;
+  string reason = 3;
+  google.protobuf.Timestamp expiry = 4;
+}
+
+message UnbanRequest {
+  string _id = 1;
+  string god = 2;
+  google.protobuf.Timestamp timestamp = 3;
+}
+
+message IntegrityRequest {
+  string _id = 1;
+}
+
+message BanResponse {
+  bool status = 1;
+}
+
+message UnbanResponse {
+  bool status = 1;
+}
+
+message IntegrityResponse {
+  bool status = 1;
+}

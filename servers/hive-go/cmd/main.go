@@ -5,6 +5,7 @@ import (
 	"github.com/cbotte21/hive-go/internal/jwtParser"
 	"github.com/cbotte21/hive-go/internal/playerbase"
 	"github.com/cbotte21/hive-go/pb"
+	judicial "github.com/cbotte21/judicial-go/pb"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -26,12 +27,22 @@ func main() {
 	//Register handlers to attach
 	playerBase := playerbase.PlayerBase{}
 	jwtRedeemer := jwtParser.NewJwtSecret(SECRET)
+	judicialClient := judicial.NewJudicialServiceClient(getConn())
 	//Initialize hive
-	hive := internal.NewHive(&playerBase, &jwtRedeemer)
+	hive := internal.NewHive(&playerBase, &jwtRedeemer, &judicialClient)
 
 	pb.RegisterHiveServiceServer(grpcServer, &hive)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to initialize grpc server.")
 	}
+}
+
+func getConn() *grpc.ClientConn {
+	var conn *grpc.ClientConn
+	conn, err := grpc.Dial(":9001", grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+	return conn
 }

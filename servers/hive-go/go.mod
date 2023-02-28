@@ -2,6 +2,9 @@ module github.com/cbotte21/hive-go
 
 go 1.19
 
+require github.com/cbotte21/judicial-go v0.0.0
+replace "github.com/cbotte21/judicial-go" v0.0.0 => "/home/cbotte21/GolandProjects/chess-app/servers/judicial-go"
+
 require (
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/golang/protobuf v1.5.2

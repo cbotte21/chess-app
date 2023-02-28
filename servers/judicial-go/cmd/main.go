@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/cbotte21/hive-go/internal"
+	hive "github.com/cbotte21/hive-go/pb"
+	"github.com/cbotte21/judicial-go/internal"
+	pb "github.com/cbotte21/judicial-go/pb"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -20,13 +22,22 @@ func main() {
 	grpcServer := grpc.NewServer()
 
 	//Register handler(s) to attach
-
+	hiveClient := hive.NewHiveServiceClient(getConn())
 	//Initialize judicial
-	_ = internal.NewJudicial()
+	jury := internal.NewJudicial(&hiveClient)
 
-	//pb.RegisterJudicialServiceServer(grpcServer, &hive)
+	pb.RegisterJudicialServiceServer(grpcServer, &jury)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to initialize grpc server.")
 	}
+}
+
+func getConn() *grpc.ClientConn {
+	var conn *grpc.ClientConn
+	conn, err := grpc.Dial(":9000", grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+	return conn
 }
