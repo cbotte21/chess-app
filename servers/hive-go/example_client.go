@@ -21,7 +21,7 @@ func main() {
 
 	hive := pb.NewHiveServiceClient(conn)
 
-	player, err := hive.Join(context.Background(), &pb.Jwt{Jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1NzhjOTZlMTQ0YjQxYzJhOWMzYjkiLCJyb2xlIjowLCJpc3MiOiJjYm90dGUyMSIsInN1YiI6Imp3dCIsImF1ZCI6WyJjbGllbnQiXSwiZXhwIjoxNjczODY5MzQ4LCJuYmYiOjE2NzM4MTg5NDgsImlhdCI6MTY3MzgxODk0OCwianRpIjoiMSJ9.0TABQLbN4F0HbB8ukzFt6uttT1RusiH7EFE-gxSeslo"})
+	player, err := hive.Join(context.Background(), &pb.Jwt{Jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1NzhjOTZlMTQ0YjQxYzJhOWMzYjkiLCJyb2xlIjowLCJpc3MiOiJjYm90dGUyMSIsInN1YiI6Imp3dCIsImF1ZCI6WyJjbGllbnQiXSwiZXhwIjoxNjc3NjYwMjc4LCJuYmYiOjE2Nzc2MDk4NzgsImlhdCI6MTY3NzYwOTg3OCwianRpIjoiMSJ9.plDGQKyxHT5XMxT3bN7etVLoa-mJTlKN2EKlF9_39qg"})
 	if err != nil {
 		println(err)
 		return
