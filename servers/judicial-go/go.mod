@@ -12,7 +12,7 @@ require (
 	google.golang.org/protobuf v1.28.1
 )
 
-replace github.com/cbotte21/hive-go v0.0.0 => /home/cbotte21/GolandProjects/chess-app/servers/hive-go
+replace github.com/cbotte21/hive-go v0.0.0 => ../hive-go
 
 require (
 	github.com/golang/snappy v0.0.1 // indirect
