@@ -15,3 +15,4 @@ How to deploy: Simple, build/deploy all the docker images, exposing the applicab
 # TODO:
     - Create common module (DB Connection, DB Schema, EnvVariableChecker)
     - Setup Dockerfiles
+    - Change repository so every server has a submodule
