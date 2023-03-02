@@ -4,15 +4,14 @@ Purpose: The purpose of this project is to provide an open source, easily access
 
 How to deploy: Simple, build/deploy all the docker images, exposing the applicable port and setting the desired environment variables.
 
-Server communications:
-    hive -> judicial
-    chess -> client_socket, archive //bidirectional communication with client
-    queue -> chess
+# Communication diagram:
+    - auth
+    - hive -> judicial
+    - username
+    - chess -> chessbot
+    - chessbot -> chess
+    - queue -> chess
 
 # TODO:
-    - Extract env variable checks to main. Also add PORT as env variable
-    
-    - Finish archive-go
-    - Finish chess-go
-    
-    - Build client
+    - Create common module (DB Connection, DB Schema, EnvVariableChecker)
+    - Setup Dockerfiles

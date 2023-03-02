@@ -4,20 +4,32 @@ import (
 	hive "github.com/cbotte21/hive-go/pb"
 	"github.com/cbotte21/judicial-go/internal"
 	pb "github.com/cbotte21/judicial-go/pb"
+	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"os"
 	"strconv"
 )
 
-const (
-	PORT int = 9001
-)
-
 func main() {
-	lis, err := net.Listen("tcp", ":"+strconv.Itoa(PORT))
+	//Verify enviroment variables exist
+	err := godotenv.Load()
 	if err != nil {
-		log.Fatalf("Failed to listen on port: %d", PORT)
+		log.Fatalf("could not load enviroment variables")
+	}
+	verifyEnvVariable("port")
+	verifyEnvVariable("mongo_uri")
+	//Get port
+	port, err := strconv.Atoi(os.Getenv("port"))
+	if err != nil {
+		log.Fatalf("could not parse {auth_port} enviroment variable")
+	}
+
+	//Setup tcp listener
+	lis, err := net.Listen("tcp", ":"+strconv.Itoa(port))
+	if err != nil {
+		log.Fatalf("Failed to listen on port: %d", port)
 	}
 	grpcServer := grpc.NewServer()
 
@@ -40,4 +52,11 @@ func getConn() *grpc.ClientConn {
 		log.Fatalf(err.Error())
 	}
 	return conn
+}
+
+func verifyEnvVariable(name string) {
+	_, uriPresent := os.LookupEnv(name)
+	if !uriPresent {
+		log.Fatalf("could not find {" + name + "} environment variable")
+	}
 }

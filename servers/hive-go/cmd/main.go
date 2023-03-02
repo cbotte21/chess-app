@@ -6,27 +6,38 @@ import (
 	"github.com/cbotte21/hive-go/internal/playerbase"
 	"github.com/cbotte21/hive-go/pb"
 	judicial "github.com/cbotte21/judicial-go/pb"
+	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"os"
 	"strconv"
 )
 
-const (
-	PORT   int    = 9000
-	SECRET string = "mysupersecretjwtphrase"
-)
-
 func main() {
-	lis, err := net.Listen("tcp", ":"+strconv.Itoa(PORT))
+	//Verify enviroment variables exist
+	err := godotenv.Load()
 	if err != nil {
-		log.Fatalf("Failed to listen on port: %d", PORT)
+		log.Fatalf("could not load enviroment variables")
+	}
+	verifyEnvVariable("port")
+	verifyEnvVariable("secret")
+	//Get port
+	port, err := strconv.Atoi(os.Getenv("port"))
+	if err != nil {
+		log.Fatalf("could not parse {auth_port} enviroment variable")
+	}
+
+	//Setup tcp listener
+	lis, err := net.Listen("tcp", ":"+strconv.Itoa(port))
+	if err != nil {
+		log.Fatalf("Failed to listen on port: %d", port)
 	}
 	grpcServer := grpc.NewServer()
 
 	//Register handlers to attach
 	playerBase := playerbase.PlayerBase{}
-	jwtRedeemer := jwtParser.NewJwtSecret(SECRET)
+	jwtRedeemer := jwtParser.NewJwtSecret(os.Getenv("secret"))
 	judicialClient := judicial.NewJudicialServiceClient(getConn())
 	//Initialize hive
 	hive := internal.NewHive(&playerBase, &jwtRedeemer, &judicialClient)
@@ -45,4 +56,11 @@ func getConn() *grpc.ClientConn {
 		log.Fatalf(err.Error())
 	}
 	return conn
+}
+
+func verifyEnvVariable(name string) {
+	_, uriPresent := os.LookupEnv(name)
+	if !uriPresent {
+		log.Fatalf("could not find {" + name + "} environment variable")
+	}
 }

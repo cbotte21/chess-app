@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/gorilla/mux v1.8.0
-	github.com/joho/godotenv v1.4.0
+	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver v1.10.1
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
 )
