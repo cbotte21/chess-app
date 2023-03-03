@@ -19,7 +19,6 @@ func main() {
 		log.Fatalf("could not load enviroment variables")
 	}
 	verifyEnvVariable("port")
-	verifyEnvVariable("mongo_uri")
 	//Get port
 	port, err := strconv.Atoi(os.Getenv("port"))
 	if err != nil {
