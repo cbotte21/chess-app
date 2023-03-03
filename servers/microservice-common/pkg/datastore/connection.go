@@ -2,30 +2,15 @@ package datastore
 
 import (
 	"context"
-	"fmt"
-	"github.com/joho/godotenv"
+	"github.com/cbotte21/microservice-common/pkg/enviroment"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
-	"log"
-	"os"
 )
 
 func GetMongoClient() (*mongo.Client, error) {
-	//Verify env variables exist
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Could not load enviroment variables!")
-	}
-	uri, uriPresent := os.LookupEnv("username_mongo_uri")
-
-	if !uriPresent {
-		fmt.Println("could not find {username_mongo_uri} environment variable")
-		os.Exit(1)
-	}
-
 	//connect
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(enviroment.GetEnvVariable("mongo_uri")))
 
 	//error check
 	if err != nil {

@@ -8,7 +8,7 @@ import (
 
 type Queue struct {
 	AdtQueue *adt_queue.AdtQueue
-	pb.UnimplementedJudicialServiceServer
+	pb.UnimplementedQueueServiceServer
 }
 
 func NewQueue(adtQueue *adt_queue.AdtQueue) Queue {

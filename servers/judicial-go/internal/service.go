@@ -4,14 +4,16 @@ import (
 	"context"
 	"errors"
 	hive "github.com/cbotte21/hive-go/pb"
-	"github.com/cbotte21/judicial-go/internal/datastore"
 	"github.com/cbotte21/judicial-go/internal/schema"
-	pb "github.com/cbotte21/judicial-go/pb"
+	"github.com/cbotte21/judicial-go/pb"
+	"github.com/cbotte21/microservice-common/pkg/datastore"
+	"github.com/cbotte21/microservice-common/pkg/jwtParser"
 	"time"
 )
 
 type Judicial struct {
 	HiveClient *hive.HiveServiceClient
+	JwtParser  *jwtParser.JwtSecret
 	pb.UnimplementedJudicialServiceServer
 }
 
@@ -25,13 +27,13 @@ func canBan(role int32) bool {
 
 func (judicial *Judicial) Ban(ctx context.Context, banRequest *pb.BanRequest) (*pb.BanResponse, error) {
 	role, err := (*judicial.HiveClient).Role(context.Background(), &hive.RoleRequest{Jwt: banRequest.GetGod()})
-	admin, err2 := (*judicial.HiveClient).Redeem(context.Background(), &hive.RedeemRequest{Jwt: banRequest.GetGod()})
+	admin, err2 := judicial.JwtParser.Redeem(banRequest.GetGod())
 
 	if err == nil && err2 == nil {
 		if canBan(role.GetValue()) {
 			err := datastore.Create(schema.Ban{
 				Player:    banRequest.XId,
-				God:       admin.GetXId(),
+				God:       admin,
 				Reason:    banRequest.GetReason(),
 				Expiry:    banRequest.GetExpiry().String(),
 				Timestamp: time.Now().String(),
@@ -48,7 +50,7 @@ func (judicial *Judicial) Ban(ctx context.Context, banRequest *pb.BanRequest) (*
 
 func (judicial *Judicial) Unban(ctx context.Context, unbanRequest *pb.UnbanRequest) (*pb.UnbanResponse, error) {
 	role, err := (*judicial.HiveClient).Role(context.Background(), &hive.RoleRequest{Jwt: unbanRequest.GetGod()})
-	admin, err2 := (*judicial.HiveClient).Redeem(context.Background(), &hive.RedeemRequest{Jwt: unbanRequest.GetGod()})
+	admin, err2 := judicial.JwtParser.Redeem(unbanRequest.GetGod())
 
 	if err == nil && err2 == nil {
 		if canBan(role.GetValue()) {
@@ -56,7 +58,7 @@ func (judicial *Judicial) Unban(ctx context.Context, unbanRequest *pb.UnbanReque
 			if err == nil {
 				err := datastore.Create(schema.Unban{
 					Player:    unbanRequest.GetXId(),
-					God:       admin.GetXId(),
+					God:       admin,
 					Timestamp: time.Now().String(),
 				})
 				if err == nil { //Success

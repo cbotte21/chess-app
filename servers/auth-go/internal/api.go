@@ -20,7 +20,7 @@ func NewApi(port int) (*Api, bool) {
 	return api, true
 }
 
-func (api *Api) Start() error { //maybe change return to bool
+func (api *Api) Start() error {
 	return http.ListenAndServe(":"+strconv.Itoa(api.port), api.router)
 }
 

@@ -2,7 +2,7 @@ package datastore
 
 import (
 	"context"
-	"github.com/cbotte21/judicial-go/internal/schema"
+	"github.com/cbotte21/microservice-common/pkg/schema"
 )
 
 func Find[T schema.Schema[any]](schema T) (T, error) {

@@ -2,7 +2,7 @@ package handler
 
 import (
 	"fmt"
-	"github.com/cbotte21/username-go/internal/datastore"
+	"github.com/cbotte21/microservice-common/pkg/datastore"
 	"github.com/cbotte21/username-go/internal/schema"
 	"github.com/gorilla/mux"
 	"net/http"

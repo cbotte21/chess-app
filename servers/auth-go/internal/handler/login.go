@@ -2,10 +2,11 @@ package handler
 
 import (
 	"fmt"
-	"github.com/cbotte21/auth-go/internal/datastore"
-	"github.com/cbotte21/auth-go/internal/schema"
-	"github.com/cbotte21/auth-go/internal/utilities"
+	"github.com/cbotte21/microservice-common/pkg/datastore"
+	"github.com/cbotte21/microservice-common/pkg/jwtParser"
+	"github.com/cbotte21/microservice-common/pkg/schema"
 	"net/http"
+	"os"
 )
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) { //TODO: Update last login
@@ -41,7 +42,10 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) { //TODO: Update last 
 		return
 	}
 
-	tokenString, err := utilities.GenerateJWT(candideUser)
+	//TODO: Export jwtSecret for increased performence
+	var jwtSecret = jwtParser.JwtSecret(os.Getenv("jwt_secret"))
+	tokenString, err := jwtSecret.GenerateJWT(candideUser)
+
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Please try again later.\n"))

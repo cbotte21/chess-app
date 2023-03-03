@@ -5,11 +5,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-//user struct
-
-const DATABASE string = "auth"
-const COLLECTION string = "users"
-
+// User struct
 type User struct { //Payload
 	Id               string `bson:"_id,omitempty"`
 	Email            string `bson:"email,omitempty"`
@@ -20,11 +16,11 @@ type User struct { //Payload
 }
 
 func (user User) Database() string {
-	return DATABASE
+	return "auth"
 }
 
 func (user User) Collection() string {
-	return COLLECTION
+	return "users"
 }
 
 func (user *User) SetPassword(candidePassword string) error {

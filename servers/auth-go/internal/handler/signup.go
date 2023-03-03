@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"github.com/cbotte21/auth-go/internal/datastore"
-	"github.com/cbotte21/auth-go/internal/schema"
 	"github.com/cbotte21/auth-go/internal/utilities"
+	"github.com/cbotte21/microservice-common/pkg/datastore"
+	"github.com/cbotte21/microservice-common/pkg/schema"
 	"go.mongodb.org/mongo-driver/mongo"
 	"net/http"
 	"strconv"

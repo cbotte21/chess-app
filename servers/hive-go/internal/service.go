@@ -2,10 +2,10 @@ package internal
 
 import (
 	"errors"
-	"github.com/cbotte21/hive-go/internal/jwtParser"
 	"github.com/cbotte21/hive-go/internal/playerbase"
 	"github.com/cbotte21/hive-go/pb"
 	judicial "github.com/cbotte21/judicial-go/pb"
+	"github.com/cbotte21/microservice-common/pkg/jwtParser"
 	"golang.org/x/net/context"
 )
 
