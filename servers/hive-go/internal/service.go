@@ -22,12 +22,12 @@ func NewHive(playerBase *playerbase.PlayerBase, jwtRedeemer *jwtParser.JwtSecret
 
 // Join appends {_id, jwtParser} to the active players, if joinRequest.jwtParser is valid
 func (hive *Hive) Join(ctx context.Context, joinRequest *pb.JoinRequest) (*pb.JoinResponse, error) {
-	_id, err := hive.JwtRedeemer.Redeem(joinRequest.GetJwt())
+	res, err := hive.JwtRedeemer.Redeem(joinRequest.GetJwt())
 	if err == nil {
-		integrity, err := (*hive.JudicialClient).Integrity(ctx, &judicial.IntegrityRequest{XId: _id})
+		integrity, err := (*hive.JudicialClient).Integrity(ctx, &judicial.IntegrityRequest{XId: res.Id})
 		if err == nil {
 			if integrity.Status {
-				hive.PlayerBase.AppendUnique(joinRequest.GetJwt(), _id)
+				hive.PlayerBase.AppendUnique(joinRequest.GetJwt(), res.Id)
 				return &pb.JoinResponse{Status: 1}, nil
 			}
 		}
@@ -53,10 +53,4 @@ func (hive *Hive) Online(ctx context.Context, onlineRequest *pb.OnlineRequest) (
 func (hive *Hive) Redeem(ctx context.Context, redeemRequest *pb.RedeemRequest) (*pb.RedeemResponse, error) {
 	id, err := hive.PlayerBase.GetId(redeemRequest.GetJwt())
 	return &pb.RedeemResponse{XId: id}, err
-}
-
-// Role returns a player's Role
-func (hive *Hive) Role(ctx context.Context, roleRequest *pb.RoleRequest) (*pb.RoleResponse, error) {
-	role, err := hive.PlayerBase.Role(roleRequest.GetJwt())
-	return &pb.RoleResponse{Value: role}, err
 }

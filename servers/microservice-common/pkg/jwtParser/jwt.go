@@ -32,7 +32,6 @@ func (secret JwtSecret) GenerateJWT(user schema.User) (string, error) { //time.N
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	println()
 	tokenString, err := token.SignedString([]byte(secret))
 	return tokenString, err
 }

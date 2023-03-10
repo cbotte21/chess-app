@@ -13,7 +13,6 @@ How to deploy: Simple, build/deploy all the docker images, exposing the applicab
     - queue -> chess
 
 # TODO:
-    - Create common module (DB Connection, DB Schema, EnvVariableChecker)
     - Change repository so every server has a submodule
     - Put Role in jwt, remove from hive-go    
     - Setup Dockerfiles

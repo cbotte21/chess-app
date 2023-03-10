@@ -10,7 +10,6 @@ import (
 	"github.com/cbotte21/auth-go/internal"
 	"github.com/cbotte21/microservice-common/pkg/enviroment"
 	"log"
-	"os"
 	"strconv"
 )
 
@@ -20,7 +19,7 @@ func main() {
 	enviroment.VerifyEnvVariable("port")
 	enviroment.VerifyEnvVariable("jwt_secret")
 	//Get port
-	port, err := strconv.Atoi(os.Getenv("port"))
+	port, err := strconv.Atoi(enviroment.GetEnvVariable("port"))
 	if err != nil {
 		log.Fatalf("could not parse {auth_port} enviroment variable")
 	}

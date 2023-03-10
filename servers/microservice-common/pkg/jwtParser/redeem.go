@@ -5,23 +5,18 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-type Content struct {
-	XId string `json:"_id"`
-	jwt.RegisteredClaims
-}
-
-// Redeem returns _id, error message (if applicable)
-func (secret JwtSecret) Redeem(userToken string) (string, error) {
-	token, err := jwt.ParseWithClaims(userToken, &Content{}, func(token *jwt.Token) (interface{}, error) {
+// Redeem returns the contents of a jwt
+func (secret JwtSecret) Redeem(userToken string) (*JwtContent, error) {
+	token, err := jwt.ParseWithClaims(userToken, &JwtContent{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil
 	})
 	if err == nil {
-		if claims, ok := token.Claims.(*Content); ok && token.Valid {
-			return claims.XId, nil
+		if claims, ok := token.Claims.(*JwtContent); ok && token.Valid {
+			return claims, nil
 		}
 	}
 
-	return "", err
+	return nil, err
 }
 
 // ValidateJWT returns nil if the token is valid

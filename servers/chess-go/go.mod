@@ -6,8 +6,11 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/golang/protobuf v1.5.2
 	golang.org/x/net v0.4.0
+	github.com/cbotte21/microservice-common v1.0.0
 	google.golang.org/grpc v1.52.0
 )
+
+replace github.com/cbotte21/microservice-common => ../microservice-common
 
 require (
 	golang.org/x/sys v0.3.0 // indirect

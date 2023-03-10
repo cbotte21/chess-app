@@ -555,12 +555,12 @@ var file_hive_proto_goTypes = []interface{}{
 var file_hive_proto_depIdxs = []int32{
 	0, // 0: HiveService.Join:input_type -> JoinRequest
 	1, // 1: HiveService.Disconnect:input_type -> DisconnectRequest
-	2, // 2: HiveService.Redeem:input_type -> RedeemRequest
+	2, // 2: HiveService.GetId:input_type -> RedeemRequest
 	4, // 3: HiveService.Online:input_type -> OnlineRequest
 	3, // 4: HiveService.Role:input_type -> RoleRequest
 	7, // 5: HiveService.Join:output_type -> JoinResponse
 	6, // 6: HiveService.Disconnect:output_type -> DisconnectResponse
-	5, // 7: HiveService.Redeem:output_type -> RedeemResponse
+	5, // 7: HiveService.GetId:output_type -> RedeemResponse
 	8, // 8: HiveService.Online:output_type -> OnlineResponse
 	9, // 9: HiveService.Role:output_type -> RoleResponse
 	5, // [5:10] is the sub-list for method output_type

@@ -57,7 +57,7 @@ func (c *hiveServiceClient) Disconnect(ctx context.Context, in *DisconnectReques
 
 func (c *hiveServiceClient) Redeem(ctx context.Context, in *RedeemRequest, opts ...grpc.CallOption) (*RedeemResponse, error) {
 	out := new(RedeemResponse)
-	err := c.cc.Invoke(ctx, "/HiveService/Redeem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/HiveService/GetId", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +105,7 @@ func (UnimplementedHiveServiceServer) Disconnect(context.Context, *DisconnectReq
 	return nil, status.Errorf(codes.Unimplemented, "method Disconnect not implemented")
 }
 func (UnimplementedHiveServiceServer) Redeem(context.Context, *RedeemRequest) (*RedeemResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Redeem not implemented")
+	return nil, status.Errorf(codes.Unimplemented, "method GetId not implemented")
 }
 func (UnimplementedHiveServiceServer) Online(context.Context, *OnlineRequest) (*OnlineResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Online not implemented")
@@ -172,7 +172,7 @@ func _HiveService_Redeem_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/HiveService/Redeem",
+		FullMethod: "/HiveService/GetId",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(HiveServiceServer).Redeem(ctx, req.(*RedeemRequest))
@@ -232,7 +232,7 @@ var HiveService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _HiveService_Disconnect_Handler,
 		},
 		{
-			MethodName: "Redeem",
+			MethodName: "GetId",
 			Handler:    _HiveService_Redeem_Handler,
 		},
 		{

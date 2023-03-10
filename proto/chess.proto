@@ -2,13 +2,27 @@ syntax = "proto3";
 option go_package = "github.com/cbotte21/chess-go/pb";
 
 service ChessService {
+  rpc Create(CreateRequest) returns (CreateResponse) {}
   rpc Move(MoveRequest) returns (Bool) {}
   rpc Update(Jwt) returns (stream BoardStatus) {}
 }
 
+//Player{1|2} are _ids
+//Internal request from queue
+message CreateRequest {
+  Player player1 = 1;
+  Player player2 = 2;
+  bool ranked = 3;
+}
+
+message CreateResponse {
+  bool status = 1;
+}
+
 message MoveRequest {
   Jwt jwt = 1;
-  Position position = 2;
+  Position initial = 2;
+  Position final = 3;
 }
 
 //X, Y from bottom left
