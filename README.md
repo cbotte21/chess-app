@@ -22,6 +22,6 @@ Lastly a client will be build. Most likely a basic nodejs frontend.
     - queue -> chess
 
 # TODO:
-    - Change repository so every server has a submodule
-    - Put Role in jwt, remove from hive-go    
+    - Move servers to seperate repositories
     - Setup Dockerfiles
+    - Create client
