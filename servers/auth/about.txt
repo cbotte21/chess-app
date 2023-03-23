@@ -1,1 +1,5 @@
+About: Auth handles user credentials, it has three basic functions. It can create accounts, sign people in and return a JWT, lastly it can validate the integrity of a JWT.
 
+Repository: https://github.com/cbotte21/auth-go
+
+Additional Notes:
