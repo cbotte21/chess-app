@@ -1,1 +1,5 @@
+About: Hive is a collection of all active users. Users connect using their JWT assigned from AUTH, a query is sent to JUDICIAL validating their access. Basic user functions such as kicking, active user count, and disconnect can be found here.
 
+Repository: https://github.com/cbotte21/hive-go
+
+Additional Notes:
