@@ -2,4 +2,4 @@ About: A player must join the queue to be put in a chess match. Once two players
 
 Repository: https://github.com/cbotte21/queue-go
 
-Additional Notes: This is the only microservice not implemented yet.
+Additional Notes:
