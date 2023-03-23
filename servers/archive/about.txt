@@ -1,1 +1,5 @@
+About: Archive is a ledger. Upon completion of a chess game, the chess microservice will send over game details to be saved. Archive also serves players wishing to view someone's match history.
 
+Repository: https://github.com/cbotte21/archive-go
+
+Additional Notes: This is the only microservice not implemented yet.
