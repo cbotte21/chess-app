@@ -2,29 +2,20 @@ syntax = "proto3";
 option go_package = "github.com/cbotte21/hive-go/pb";
 
 service HiveService {
-  rpc Join(JoinRequest) returns (JoinResponse) {}
-  rpc Disconnect(DisconnectRequest) returns (DisconnectResponse) {}
-  rpc Redeem(RedeemRequest) returns (RedeemResponse) {}
-  rpc Online(OnlineRequest) returns (OnlineResponse) {} //TODO: Depreciated
+  rpc Connect(ConnectRequest) returns (stream ConnectionStatus) {}
+  rpc ForceDisconnect(DisconnectRequest) returns (DisconnectResponse) {}
+  rpc Online(OnlineRequest) returns (OnlineResponse) {}
 }
 
-message JoinRequest {
+message ConnectRequest {
   string jwt = 1;
 }
 
 message DisconnectRequest {
-  string jwt = 1;
-}
-
-message RedeemRequest {
-  string jwt = 1;
+  string id = 1;
 }
 
 message OnlineRequest {
-  string _id = 1;
-}
-
-message RedeemResponse {
   string _id = 1;
 }
 
@@ -32,7 +23,7 @@ message DisconnectResponse {
 
 }
 
-message JoinResponse {
+message ConnectionStatus {
   int32 status = 1;
 }
 
