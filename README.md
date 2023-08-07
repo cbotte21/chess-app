@@ -13,5 +13,6 @@ How to deploy: Simple, build/deploy all the docker images, exposing the applicab
     - queue -> chess
 
 # TODO:
-    - Add redis to microservices
     - Finish client
+    - Build leaderboards
+    - Build admin portal
