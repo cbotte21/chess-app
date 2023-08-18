@@ -25,7 +25,17 @@ services:
       context: ../../judicial-go
       dockerfile: Dockerfile
     image: chess/judicial
+  chess.default.svc.cluster.local:
+    build:
+      context: ../../chess-go
+      dockerfile: Dockerfile
+    image: chess/chess
+  archive.default.svc.cluster.local:
+    build:
+      context: ../../archive-go
+      dockerfile: Dockerfile
+    image:  chess/archive
   redis.default.svc.cluster.local:
-    image: redis/redis-stack:latest #Add -server after stack for production
+    image: redis/redis-stack:latest
     ports:
       - "8001:8001"
