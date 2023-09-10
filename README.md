@@ -13,6 +13,7 @@ How to deploy: Simple, build/deploy all the docker images, exposing the applicab
     - queue -> chess
 
 # TODO:
+    - Use ansible to update/restart servers from pipeline
     - Finish client
     - Build leaderboards
     - Build admin portal
