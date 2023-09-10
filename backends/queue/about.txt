@@ -1,5 +1,0 @@
-About: A player must join the queue to be put in a chess match. Once two players get matched in the queue, a query is sent to CHESS with the players info. The players then get a response from queue, requesting them to open a connection with CHESS.
-
-Repository: https://github.com/cbotte21/queue-go
-
-Additional Notes:

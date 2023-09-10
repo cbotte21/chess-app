@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = "github.com/cbotte21/adt_queue-go/pb";
+option go_package = "github.com/cbotte21/queue-go/pb";
 
 service QueueService {
   rpc Join(JoinRequest) returns (stream JoinResponse) {} //Returns 0 on failure, 1 while in queue, 2 when found game, JOIN chess.

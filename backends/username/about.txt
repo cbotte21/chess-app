@@ -1,5 +1,0 @@
-About: Username returns a username from a user's _id.
-
-Repository: https://github.com/cbotte21/username-go
-
-Additional Notes:

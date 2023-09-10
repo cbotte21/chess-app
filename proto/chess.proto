@@ -3,20 +3,21 @@ option go_package = "github.com/cbotte21/chess-go/pb";
 
 service ChessService {
   rpc Create(CreateRequest) returns (CreateResponse) {}
-  rpc Move(MoveRequest) returns (Bool) {}
-  rpc Update(Jwt) returns (stream BoardStatus) {}
+  rpc Move(stream MoveRequest) returns (stream MoveResponse) {}
 }
 
 //Player{1|2} are _ids
 //Internal request from queue
 message CreateRequest {
-  Player player1 = 1;
-  Player player2 = 2;
+  Player white = 1;
+  Player black = 2;
   bool ranked = 3;
 }
 
 message CreateResponse {
   bool status = 1;
+  string white = 2;
+  string black= 3;
 }
 
 message MoveRequest {
@@ -25,25 +26,30 @@ message MoveRequest {
   Position final = 3;
 }
 
+message MoveResponse {
+  bool turn = 1;
+  /*
+  State:
+  	[0] = PAWNS
+	[1] = KNIGHTS
+	[2] = ROOK
+	[3] = BISHOP
+	[4] = QUEEN
+	[5] = KING
+	[6] = WHITE'S BOARD
+	[7] = ENPASSANT
+  */
+  repeated int64 state = 2;
+}
+
 //X, Y from bottom left
 message Position {
   int32 x = 1;
   int32 y = 2;
 }
 
-message Bool {
-  bool status = 1;
-}
-
 message Jwt {
   string jwt = 1;
-}
-
-//0 is white, returns board as a string. Each piece represented by {team - (0 == white)}{p - pawn, q - queen, r - rook, b - bishop, n - knight, k - king} (len = 128, 64x2)
-message BoardStatus {
-  bool turn = 1;
-  Player opponent = 2;
-  string board = 3;
 }
 
 message Player {

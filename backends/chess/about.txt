@@ -1,5 +1,0 @@
-About: Chess is the brains of all games. It keeps track of all game states, and validates user moves.
-
-Repository: https://github.com/cbotte21/chess-go
-
-Additional Notes:

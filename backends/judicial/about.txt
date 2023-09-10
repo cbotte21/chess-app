@@ -1,5 +1,0 @@
-About: Judicial is the law of the microservies. It handles player bans and unbans.
-
-Repository: https://github.com/cbotte21/judicial-go
-
-Additional Notes:

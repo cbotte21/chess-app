@@ -4,13 +4,13 @@ option go_package = "github.com/cbotte21/archive-go/pb";
 import "google/protobuf/timestamp.proto";
 
 service ArchiveService {
-  rpc History(Jwt) returns (PriorMatches) {}
+  rpc History(Player) returns (PriorMatches) {}
   rpc Match(MatchId) returns (MatchInfo) {}
   rpc Record(MatchInfo) returns (Void) {}
 }
 
 message PriorMatches {
-  repeated string ids = 1; //array
+  repeated string id = 1; //array
 }
 
 message MatchId {
@@ -21,16 +21,11 @@ message MatchInfo {
   Player viktor = 1;
   Player opponent = 2;
   int32 deltaElo = 3;
-  repeated string audit = 4;
   google.protobuf.Timestamp timestamp = 5;
 }
 
 message Player {
   string _id = 1;
-}
-
-message Jwt {
-  string jwt = 1;
 }
 
 message Void {}
