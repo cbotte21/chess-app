@@ -47,7 +47,7 @@ build {
       "apk add git",
       "git clone https://github.com/cbotte21/${var.name} app",
       "cd app/cmd",
-      "go install",
+      "go get",
       "go build",
     ]
   }
