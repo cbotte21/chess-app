@@ -10,6 +10,14 @@ class Microservice {
 	}
 }
 
+function Get-Addr {
+	param(
+		[parameter(Mandatory)]
+		[string]$Name
+	)
+	"$($Name.Split('-')[$Name.Split('-').Length - 2]).default.svc.cluster.local"
+}
+
 $JWT_SECRET = "MYSUPERSECRETPASSCODE"
 $MONGOURI = ""
 
@@ -35,17 +43,17 @@ $MONGOURI = ""
 			"chess-go", # Not compiling
 			"5002",
 			@(
-				"queue_addr=",
+				"queue_addr=$(Get-Addr "queue-go")",
 				"jwt_secret=$JWT_SECRET",
-				"redis_addr="
+				"redis_addr=$(Get-Addr "redis-server")"
 			)
 	),
 	[Microservice]::new(
 			"queue-go",
 			"5003",
 			@(
-				"chess_addr=",
-				"redis_addr="
+				"chess_addr=$(Get-Addr "chess-go")",
+				"redis_addr=$(Get-Addr "redis-server")"
 			)
 	),
 	[Microservice]::new(
@@ -53,8 +61,8 @@ $MONGOURI = ""
 			"5004",
 			@(
 				"jwt_secret=$JWT_SECRET",
-				"judicial_addr=",
-				"redis_addr="
+				"judicial_addr=$(Get-Addr "judicial-go")",
+				"redis_addr=$(Get-Addr "redis-server")"
 			)
 	),
 	[Microservice]::new(
