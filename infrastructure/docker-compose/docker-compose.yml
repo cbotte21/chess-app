@@ -2,39 +2,21 @@ version: '3'
 
 services:
   client.default.svc.cluster.local:
-    build:
-      context: ../../client
-      dockerfile: Dockerfile
-    image: chess/nextjs
+    image: chess/chess-client-nextjs
     ports:
       - "3000:3000"
   auth.default.svc.cluster.local:
-    build:
-      context: ../../auth-go
-      dockerfile: Dockerfile
-    image: chess/auth
+    image: chess/auth-go
   hive.default.svc.cluster.local:
-    build:
-      context: ../../hive-go
-      dockerfile: Dockerfile
-    image: chess/hive
-    ports:
-      - "6001:6001"
+    image: chess/hive-go
   judicial.default.svc.cluster.local:
-    build:
-      context: ../../judicial-go
-      dockerfile: Dockerfile
-    image: chess/judicial
+    image: chess/judicial-go
   queue.default.svc.cluster.local:
-    build:
-      context: ../../queue-go
-      dockerfile: Dockerfile
-      image: chess/queue
+    image: chess/queue-go
+  archive.default.svc.cluster.local:
+    image: chess/archive-go
   chess.default.svc.cluster.local:
-    build:
-      context: ../../chess-go
-      dockerfile: Dockerfile
-      image: chess/chess
+    image: chess/chess-go
   redis.default.svc.cluster.local:
     image: redis/redis-stack:latest #Add -server after stack for production
     ports:

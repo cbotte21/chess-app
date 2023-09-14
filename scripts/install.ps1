@@ -32,7 +32,7 @@ $MONGOURI = ""
 			)
 	),
 	[Microservice]::new(
-			"archive-go", # Not compiling
+			"archive-go",
 			"5001",
 			@(
 				"mongo_uri=$MONGOURI",
@@ -40,7 +40,7 @@ $MONGOURI = ""
 			)
 	),
 	[Microservice]::new(
-			"chess-go", # Not compiling
+			"chess-go",
 			"5002",
 			@(
 				"queue_addr=$(Get-Addr "queue-go")",

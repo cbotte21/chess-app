@@ -39,7 +39,7 @@ message MoveResponse {
 	[6] = WHITE'S BOARD
 	[7] = ENPASSANT
   */
-  repeated int64 state = 2;
+  repeated uint64 state = 2;
 }
 
 //X, Y from bottom left
