@@ -13,7 +13,10 @@ How to deploy: Simple, build/deploy all the docker images, exposing the applicab
     - queue -> chess
 
 # TODO:
-    - Use ansible to update/restart servers from pipeline
     - Finish client
     - Build leaderboards
     - Build admin portal
+
+# How to run?
+    - Install docker and packer, run /scripts/install.ps1
+    - It is recommended to use docker compose for development and kubernetes for production.
