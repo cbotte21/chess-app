@@ -1,8 +1,10 @@
 # chess-app
 
-Purpose: The purpose of this project is to provide an open source, easily accessible multiplayer chess game. This is done via multiple self scaling microservices.
+Purpose: The purpose of this project is to provide a simple, open source, amd horizontally scaling multiplayer chess game.
 
-How to deploy: Simple, build/deploy all the docker images, exposing the applicable port and setting the desired environment variables.
+# How to run?
+    - Install docker and packer, run /scripts/install.ps1
+    - It is recommended to use docker compose for development and kubernetes for production.
 
 # Communication diagram:
     - auth
@@ -12,8 +14,7 @@ How to deploy: Simple, build/deploy all the docker images, exposing the applicab
     - chessbot -> chess //Not yet implemented
     - queue -> chess
 
-# TODO:
-    - Use ansible to update/restart servers from pipeline
+# Goals:
     - Finish client
     - Build leaderboards
     - Build admin portal
