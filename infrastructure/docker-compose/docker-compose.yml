@@ -2,22 +2,30 @@ version: '3'
 
 services:
   client.default.svc.cluster.local:
-    image: chess/chess-client-nextjs
+    image: chess/chess-client-nextjs:latest
     ports:
       - "3000:3000"
   auth.default.svc.cluster.local:
-    image: chess/auth-go
+    image: chess/auth-go:latest
   hive.default.svc.cluster.local:
-    image: chess/hive-go
+    image: chess/hive-go:latest
   judicial.default.svc.cluster.local:
-    image: chess/judicial-go
+    image: chess/judicial-go:latest
   queue.default.svc.cluster.local:
-    image: chess/queue-go
+    image: chess/queue-go:latest
   archive.default.svc.cluster.local:
-    image: chess/archive-go
+    image: chess/archive-go:latest
   chess.default.svc.cluster.local:
-    image: chess/chess-go
+    image: chess/chess-go:latest
+  username.default.svc.cluster.local:
+    image: chess/username-go:latest
   redis.default.svc.cluster.local:
     image: redis/redis-stack:latest #Add -server after stack for production
     ports:
       - "8001:8001"
+  mongo.default.svc.cluster.local:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example

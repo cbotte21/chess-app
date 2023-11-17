@@ -4,19 +4,21 @@ param (
 	[string]$Deployment = "docker-compose"
 )
 
-Set-Location "$PSScriptRoot/../infrastructure/docker-compose"
+Push-Location "$PSScriptRoot/../infrastructure/docker-compose"
 
 $Flags = $null
 switch ($Deployment) {
 	"docker-compose" {
 		$Flags = @{
 			FilePath = "docker"
-			ArgumentList = "compose build"
+			ArgumentList = "compose up"
 		}
 	}
 	default {
 		Write-Error "Not yet implemented."
 	}
 }
+
+Pop-Location
 
 Start-Process @Flags

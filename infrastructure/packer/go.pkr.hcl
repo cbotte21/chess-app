@@ -54,13 +54,13 @@ build {
   provisioner "shell" {
     inline = [
       "cd /go/app/cmd",
-      "${var.set_environment}"
+      "printf '%s\n' ${var.set_environment} >> .env"
     ]
   }
   post-processors {
     post-processor "docker-tag" {
       repository = "chess/${var.name}"
-      tags       = ["${var.version}"]
+      tags       = ["${var.version}", "latest"]
     }
   }
 }

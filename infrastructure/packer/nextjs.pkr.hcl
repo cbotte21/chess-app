@@ -46,8 +46,9 @@ build {
     inline = [
       "apk add git",
       "git clone https://github.com/cbotte21/${var.name} app",
+      "git submodule update --init --recursive",
       "cd app/",
-      "${var.set_environment}",
+      "printf '%s\n' ${var.set_environment} >> .env",
       "yarn install",
       "npm run build"
     ]
@@ -55,7 +56,7 @@ build {
   post-processors {
     post-processor "docker-tag" {
       repository = "chess/${var.name}"
-      tags       = ["${var.version}"]
+      tags       = ["${var.version}", "latest"]
     }
   }
 }

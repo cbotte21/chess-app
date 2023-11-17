@@ -1,9 +1,9 @@
 class Microservice {
 	[string]$Name
 	[string]$Port
-	[String]$EnvironmentVariables
+	[String[]]$EnvironmentVariables
 
-	Microservice([string]$Name, [string]$Port, [string]$EnvironmentVariables) {
+	Microservice([string]$Name, [string]$Port, [string[]]$EnvironmentVariables) {
 		$this.Name = $Name
 		$this.Port = $Port
 		$this.EnvironmentVariables = $EnvironmentVariables
@@ -19,7 +19,7 @@ function Get-Addr {
 }
 
 $JWT_SECRET = "MYSUPERSECRETPASSCODE"
-$MONGOURI = ""
+$MONGOURI = "mongodb://root:example@mongo.default.svc.cluster.local:27017/admin"
 
 [Microservice[]]$Servers = @(
 	[Microservice]::new(
@@ -47,7 +47,7 @@ $MONGOURI = ""
 				"jwt_secret=$JWT_SECRET",
 				"redis_addr=$(Get-Addr "redis-server")"
 			)
-	),
+	)
 	[Microservice]::new(
 			"queue-go",
 			"5003",
@@ -70,13 +70,26 @@ $MONGOURI = ""
 			"5005",
 			@(
 				"mongo_uri=$MONGOURI",
-				"monogo_db=username"
+				"jwt_secret=$JWT_SECRET"
+				"mongo_db=username"
+			)
+	),
+	[Microservice]::new(
+			"judicial-go",
+			"5006",
+			@(
+				"mongo_uri=$MONGOURI",
+				"hive_addr=$(Get-Addr "hive-go")"
 			)
 	),
 	[Microservice]::new(
 			"chess-client-nextjs",
 			"3000",
-			@()
+			@(
+				"hive_addr=$(Get-Addr "hive-go")",
+				"queue_addr=$(Get-Addr "queue-go")",
+				"proto_dir=chess-app/proto"
+			)
 	)
 )
 
@@ -87,12 +100,12 @@ for ($index = 0; $index -lt $Servers.length; $index++) {
 	[string]$serverName = $Servers[$index].Name
 	[string]$version = (git ls-remote "https://github.com/cbotte21/${serverName}").Replace("`t", " ").Split(' ')[0]
 	[string]$serverType = $serverName.Split('-')[$serverName.Split('-').Length-1]
-
 	[string]$setEnvVars = ""
+
 	$Servers[$index].EnvironmentVariables | ForEach-Object {
-		$setEnvVars += "echo '$_' >> .env; "
+		$setEnvVars += "'$_' "
     }
-	$setEnvVars += "echo 'port:$($Servers[$index].Port)' >> .env; "
+	$setEnvVars += "'port=$($Servers[$index].Port)'"
 
 	$env:PKR_VAR_name = $serverName
 	$env:PKR_VAR_version = $version
