@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  client.default.svc.cluster.local:
+  chess-client.default.svc.cluster.local:
     image: chess/chess-client-nextjs:latest
     ports:
       - "3000:3000"

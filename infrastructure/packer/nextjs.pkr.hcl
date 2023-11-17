@@ -46,8 +46,8 @@ build {
     inline = [
       "apk add git",
       "git clone https://github.com/cbotte21/${var.name} app",
-      "git submodule update --init --recursive",
       "cd app/",
+      "git submodule update --init --recursive",
       "printf '%s\n' ${var.set_environment} >> .env",
       "yarn install",
       "npm run build"
