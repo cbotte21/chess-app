@@ -38,7 +38,16 @@
       "environment_variables": []
     },
     {
-      "name": "hive-go",
+      "name": "hive-internal-go",
+      "port": "5004",
+      "server_links": [
+        "judicial-go",
+        "redis-server"
+      ],
+      "environment_variables": []
+    },
+    {
+      "name": "hive-external-go",
       "port": "5004",
       "server_links": [
         "judicial-go",
